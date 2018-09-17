@@ -108,7 +108,7 @@
       var squareVertexPositionBuffer
       var squareVertexColorBuffer
       function initBuffers() {
-        // Triangle Position
+        // A Position
         triangleVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
         var vertices = [
@@ -167,15 +167,16 @@
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer)
         var colors = []
         for (var i=0; i < 30; i++) {
-            colors = colors.concat([0.1, 0.5, 1.0, 1.0]);
+            colors = colors.concat([1, 0.1, 0.2, 1.0]);
         }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
         triangleVertexColorBuffer.itemSize = 4
         triangleVertexColorBuffer.numItems = 10
-        // Square Position
+        // F Position
         squareVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer)
         vertices = [
+          // Kiri F
           -1.5,   0,  0,
           -1.5, 15,  0,
           1.5,   0,  0,
@@ -183,21 +184,21 @@
           1.5, 15,  0,
           1.5,   0,  0,
 
-          // top rung front
-          1.5,   0,  0,
-          1.5,  3,  0,
-          8.5,   0,  0,
-          1.5,  3,  0,
-          8.5,  3,  0,
-          8.5,   0,  0,
+          // atas F
+          1.5,   12,  0,
+          1.5,  15,  0,
+          8.5,   12,  0,
+          1.5,  15,  0,
+          8.5,  15,  0,
+          8.5,   12,  0,
 
-          // middle rung front
+          // tengah F
+          1.5,  9,  0,
           1.5,  6,  0,
-          1.5,  9,  0,
-          4.0,  6,  0,
-          1.5,  9,  0,
           4.0,  9,  0,
+          1.5,  6,  0,
           4.0,  6,  0,
+          4.0,  9,  0,
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         squareVertexPositionBuffer.itemSize = 3
@@ -207,7 +208,7 @@
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
         colors = [];
         for (var i=0; i < 18; i++) {
-            colors = colors.concat([0.5, 0.5, 1.0, 1.0]);
+            colors = colors.concat([0.2, 0.3, 1.0, 1.0]);
         }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
         squareVertexColorBuffer.itemSize = 4;
@@ -222,9 +223,9 @@
         mat4.identity(mvMatrix)
         
         // pointer untuk gambar
-        mat4.translate(mvMatrix, mvMatrix, [0.0, 12.0, -20.0])
+        mat4.translate(mvMatrix, mvMatrix, [0.0, 11.0, -20.0])
         mvPushMatrix()
-        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rTri), [0.0, 1.0, 0.0])
+        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rTri), [1.0, 0.0, 0.0])
         // Triangle
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
@@ -235,9 +236,9 @@
         mvPopMatrix()
         
         // pindahkan pointer untuk gambar
-        mat4.translate(mvMatrix, mvMatrix, [-1.5, -20.0, -10.0])
+        mat4.translate(mvMatrix, mvMatrix, [-1.5, -37.0, -10.0])
         mvPushMatrix()
-        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare), [1.0, 0.0, 0.0])
+        mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare), [0.0, 1.0, 0.0])
         //Square
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
@@ -253,7 +254,7 @@
         if (lastTime != 0) {
           var elapsed = timeNow - lastTime
           rTri += (90 * elapsed) / 1000.0
-          rSquare += (75 * elapsed) / 1000.0
+          rSquare += (90 * elapsed) / 1000.0
         }
         lastTime = timeNow
       }
@@ -267,7 +268,7 @@
         initGL(canvas)
         initShaders()
         initBuffers()
-        gl.clearColor(0.0, 0.0, 0.0, 1.0)
+        gl.clearColor(0.1, 0.1, 0.1, 1.0)
         gl.enable(gl.DEPTH_TEST)
         tick()
       }
