@@ -134,10 +134,10 @@
         squareVertexPositionBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer)
         vertices = [
-          1.0,  1.0,  0.0,
-          -1.0, 1.0,  0.0,
-          1.0,  -1.0, 0.0,
-          -1.0, -1.0, 0.0
+          0.5,  1.0,  0.0,
+          -0.5, 1.0,  0.0,
+          0.5,  -1.0, 0.0,
+          -0.5, -1.0, 0.0
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         squareVertexPositionBuffer.itemSize = 3
@@ -158,12 +158,14 @@
       function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight)
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-        mat4.perspective(pMatrix, glMatrix.toRadian(45), gl.viewportWidth / gl.viewportHeight, 0.1, 100.0)
+        mat4.perspective(pMatrix, glMatrix.toRadian(60), gl.viewportWidth / gl.viewportHeight, 0.1, 100.0)
         mat4.identity(mvMatrix)
-        mat4.translate(mvMatrix, mvMatrix, [-1.5, 0.0, -7.0])
+        
+        // pointer untuk gambar
+        mat4.translate(mvMatrix, mvMatrix, [0.0, 2.0, -7.0])
         mvPushMatrix()
         mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rTri), [0.0, 1.0, 0.0])
-        //mat4.rotateY(mvMatrix, mvMatrix, glMatrix.toRadian(rTri))
+        // Triangle
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, triangleVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer)
@@ -171,10 +173,12 @@
         setMatrixUniforms()
         gl.drawArrays(gl.TRIANGLES, 0, triangleVertexPositionBuffer.numItems)
         mvPopMatrix()
-        mat4.translate(mvMatrix, mvMatrix, [3.0, 0.0, 0.0])
+        
+        // pindahkan pointer untuk gambar
+        mat4.translate(mvMatrix, mvMatrix, [0.0, -3.0, 0.0])
         mvPushMatrix()
         mat4.rotate(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare), [1.0, 0.0, 0.0])
-        //mat4.rotateX(mvMatrix, mvMatrix, glMatrix.toRadian(rSquare))
+        //Square
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer)
         gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0)
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer)
