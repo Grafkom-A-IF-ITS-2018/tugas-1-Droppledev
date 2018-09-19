@@ -119,11 +119,6 @@
 
         -1.0, -3.0, 0.0,
         -3.0, 3.0, 0.0,
-        -1.0, 3.0, 0.0,
-
-        // Segitiga kiri A
-        -3.0, 3.0, 0.0,
-        -1.0, 3.0, 0.0,
         -1.0, 6.0, 0.0,
 
         // Rect Kanan A
@@ -133,11 +128,6 @@
 
         1.0, -3.0, 0.0,
         3.0, 3.0, 0.0,
-        1.0, 3.0, 0.0,
-
-        // Segitiga kanan A
-        3.0, 3.0, 0.0,
-        1.0, 3.0, 0.0,
         1.0, 6.0, 0.0,
 
         // Rect atas A
@@ -161,12 +151,12 @@
         ]
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW)
         triangleVertexPositionBuffer.itemSize = 3
-        triangleVertexPositionBuffer.numItems = 30
+        triangleVertexPositionBuffer.numItems = 24
         // Triangle Color
         triangleVertexColorBuffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexColorBuffer)
         var colors = []
-        for (var i=0; i < 30; i++) {
+        for (var i=0; i < 24; i++) {
             colors = colors.concat([1, 0.1, 0.2, 1.0]);
         }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
